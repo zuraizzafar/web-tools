@@ -11,6 +11,8 @@ import Chip from '@mui/material/Chip';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function About() {
     const [open, setOpen] = React.useState(false);
@@ -49,7 +51,7 @@ export default function About() {
                             let f_date = new Date(task.date)
                             return (
                                 <Grid key={task.date} item xs={3}>
-                                    <Card sx={{ minWidth: 275, height: '100%' }} elevation={4}>
+                                    <Card sx={{ minWidth: 275, height: '100%', bgcolor: task.done ? '#f7f7f7' : '#fff' }} elevation={4}>
                                         <CardContent>
                                             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                                                 {f_date.toLocaleDateString()}
@@ -61,7 +63,7 @@ export default function About() {
                                                 {task.description}
                                             </Typography>
                                         </CardContent>
-                                        <CardActions>
+                                        <CardActions sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                             {task.done ? <Chip label="Completed" color="success" variant="outlined" /> :
                                                 <Button variant="outlined" size="small"
                                                     onClick={async () => {
@@ -94,6 +96,19 @@ export default function About() {
                                                 >
                                                     Mark Done
                                                 </Button>}
+                                            <IconButton aria-label="delete" size="large">
+                                                <DeleteIcon
+                                                    fontSize="inherit"
+                                                    onClick={async () => {
+                                                        await fetch(`http://localhost:5000/remove/${task._id}`, {
+                                                            method: "DELETE",
+                                                            headers: {
+                                                                'Content-Type': 'application/json'
+                                                            },
+                                                        });
+                                                    }}
+                                                />
+                                            </IconButton>
                                         </CardActions>
                                     </Card>
                                 </Grid>
