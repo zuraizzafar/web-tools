@@ -1,0 +1,15 @@
+.py {
+  padding: 32px 0;
+}
+
+@media(min-width: 768px) {
+  .bottom-navigation {
+    display: none;
+  }
+}
+
+@media(max-width: 768px) {
+  /* .speed-dial {
+    display: none;
+  } */
+}
